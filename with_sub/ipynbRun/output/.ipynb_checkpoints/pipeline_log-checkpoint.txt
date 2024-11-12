@@ -1,0 +1,7 @@
+
+========================================
+Starting pipeline at 2024-10-02 00:18:15.208746
+========================================
+
+Running dataloader.py...
+Running: python3 ./dataloader.py

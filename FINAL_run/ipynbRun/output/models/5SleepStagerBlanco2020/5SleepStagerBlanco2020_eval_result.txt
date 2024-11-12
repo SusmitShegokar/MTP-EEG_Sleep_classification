@@ -1,0 +1,34 @@
+Precision: 0.5781
+Recall: 0.6505
+F1 Score: 0.5957
+Kappa: 0.4848
+AUC: 0.8834
+Test Duration: 0.1264 seconds
+Support (number of true instances per class):
+Class 0: 2405.0 instances
+Class 1: 794.0 instances
+Class 2: 3599.0 instances
+Class 3: 524.0 instances
+Class 4: 305.0 instances
+Class 5: 1428.0 instances
+Confusion Matrix:
+[[1940    0  295   14   10  146]
+ [ 145    0  428    0    0  221]
+ [  99    0 3326   30    8  136]
+ [  21    0  317  117   69    0]
+ [  10    0   38   71  186    0]
+ [ 148    0  959    0    0  321]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.82      0.81      0.81      2405
+           1       0.00      0.00      0.00       794
+           2       0.62      0.92      0.74      3599
+           3       0.50      0.22      0.31       524
+           4       0.68      0.61      0.64       305
+           5       0.39      0.22      0.29      1428
+
+    accuracy                           0.65      9055
+   macro avg       0.50      0.46      0.47      9055
+weighted avg       0.58      0.65      0.60      9055
+

@@ -1,0 +1,2 @@
+Training time: 00h 01m 52s
+Validation Accuracy: 0.75

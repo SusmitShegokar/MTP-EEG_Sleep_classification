@@ -1,0 +1,942 @@
+
+========================================
+Starting pipeline at 2024-10-02 00:18:15.208746
+========================================
+
+Running dataloader.py...
+Running: python3 ./dataloader.py
+Loading data from folder: /home/deepak/Documents/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/sleep_data_subject/Sleep_Data/SleepSource/train/ (117 files) - Load labels True
+<Info | 8 non-empty values
+ bads: []
+ ch_names: Fpz-Cz, Pz-Oz
+ chs: 2 EEG
+ custom_ref_applied: False
+ highpass: 0.5 Hz
+ lowpass: 100.0 Hz
+ meas_date: 1991-09-26 15:00:00 UTC
+ nchan: 2
+ projs: []
+ sfreq: 100.0 Hz
+ subject_info: 2 items (dict)
+>
+Loaded total 63928 samples for subjects: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28]
+Source mean: -3.3544105243016737e-07, std: 1.6714105420757816e-05, min: -14.817697550237227, max: 12.524477726007957
+Loading data from folder: /home/deepak/Documents/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/sleep_data_subject/Sleep_Data/SleepSource/val/ (21 files) - Load labels True
+<Info | 8 non-empty values
+ bads: []
+ ch_names: Fpz-Cz, Pz-Oz
+ chs: 2 EEG
+ custom_ref_applied: False
+ highpass: 0.5 Hz
+ lowpass: 100.0 Hz
+ meas_date: 1991-09-26 15:00:00 UTC
+ nchan: 2
+ projs: []
+ sfreq: 100.0 Hz
+ subject_info: 2 items (dict)
+>
+Loaded total 13524 samples for subjects: [29 30 31 32 33]
+Leadeboard target mean: 0.013653236259532296, std: 0.9656775356130487, min: -11.886041995453825, max: 11.986010379211008
+Loading data from folder: /home/deepak/Documents/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/sleep_data_subject/Sleep_Data/SleepSource/test/ (21 files) - Load labels True
+<Info | 8 non-empty values
+ bads: []
+ ch_names: Fpz-Cz, Pz-Oz
+ chs: 2 EEG
+ custom_ref_applied: False
+ highpass: 0.5 Hz
+ lowpass: 100.0 Hz
+ meas_date: 1991-09-26 15:00:00 UTC
+ nchan: 2
+ projs: []
+ sfreq: 100.0 Hz
+ subject_info: 2 items (dict)
+>
+Loaded total 13093 samples for subjects: [34 35 36 37 38]
+Final target mean: 0.034664364840904474, std: 1.081690887834168, min: -12.005701405853147, max: 11.934917710326218
+0 (14974, 2, 3000)
+1 (5650, 2, 3000)
+2 (26635, 2, 3000)
+3 (4259, 2, 3000)
+4 (2382, 2, 3000)
+5 (10028, 2, 3000)
+Directory created: data/train
+Directory created: data/validate
+Directory created: data/test
+Saved train data to data/train/data.npy and labels to data/train/labels.npy
+Saved validate data to data/validate/data.npy and labels to data/validate/labels.npy
+Saved test data to data/test/data.npy and labels to data/test/labels.npy
+
+
+Running model: 1USleep
+Running model_runner.py with argument: ./modelpy/1USleep.py
+Running: python3 ./model_runner.py ./modelpy/1USleep.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+EEGClassifier(
+  (base): BaseEEGClassifier(
+    (usleep): USleep(
+      (encoder): Sequential(
+        (0): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(2, 6, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(6, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+        (1): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(6, 9, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+        (2): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(9, 11, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(11, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+        (3): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(11, 15, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(15, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+        (4): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(15, 20, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(20, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+        (5): _EncoderBlock(
+          (block_prepool): Sequential(
+            (0): Conv1d(20, 28, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(28, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (pad): ConstantPad1d(padding=(1, 1), value=0)
+          (maxpool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        )
+      )
+      (bottom): Sequential(
+        (0): Conv1d(28, 40, kernel_size=(7,), stride=(1,), padding=(3,))
+        (1): ELU(alpha=1.0)
+        (2): BatchNorm1d(40, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (decoder): Sequential(
+        (0): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(40, 28, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(28, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(56, 28, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(28, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(28, 20, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(20, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(40, 20, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(20, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(20, 15, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(15, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(30, 15, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(15, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (3): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(15, 11, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(11, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(22, 11, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(11, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (4): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(11, 9, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(18, 9, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (5): _DecoderBlock(
+          (block_preskip): Sequential(
+            (0): Upsample(scale_factor=2.0, mode='nearest')
+            (1): Conv1d(9, 6, kernel_size=(2,), stride=(1,), padding=same)
+            (2): ELU(alpha=1.0)
+            (3): BatchNorm1d(6, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (block_postskip): Sequential(
+            (0): Conv1d(12, 6, kernel_size=(7,), stride=(1,), padding=same)
+            (1): ELU(alpha=1.0)
+            (2): BatchNorm1d(6, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (clf): Sequential(
+        (0): Conv1d(6, 6, kernel_size=(1,), stride=(1,))
+        (1): Tanh()
+        (2): AvgPool1d(kernel_size=(3000,), stride=(3000,), padding=(0,))
+      )
+      (final_layer): Sequential(
+        (0): Conv1d(6, 5, kernel_size=(1,), stride=(1,))
+        (1): ELU(alpha=1.0)
+        (2): Conv1d(5, 5, kernel_size=(1,), stride=(1,))
+        (3): Identity()
+      )
+    )
+  )
+  (fc): Linear(in_features=5, out_features=6, bias=True)
+)
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.03331321194444014
+train score: 0.8449792960662525
+val loss: 0.025984562592440804
+val score: 0.8742236024844721
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 15m 21s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.8742
+
+Running evaluator1USleep
+
+Running model: 3cnn-trans-mlp
+Running model_runner.py with argument: ./modelpy/3cnn-trans-mlp.py
+Running: python3 ./model_runner.py ./modelpy/3cnn-trans-mlp.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+EEGClassifier(
+  (cnn_layers): Sequential(
+    (0): CNNBlock(
+      (conv): Conv1d(2, 16, kernel_size=(7,), stride=(2,), padding=(3,))
+      (bn): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU()
+    )
+    (1): CNNBlock(
+      (conv): Conv1d(16, 32, kernel_size=(5,), stride=(2,), padding=(2,))
+      (bn): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU()
+    )
+    (2): CNNBlock(
+      (conv): Conv1d(32, 64, kernel_size=(3,), stride=(2,), padding=(1,))
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU()
+    )
+    (3): CNNBlock(
+      (conv): Conv1d(64, 128, kernel_size=(3,), stride=(2,), padding=(1,))
+      (bn): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU()
+    )
+  )
+  (transformer_layers): TransformerEncoder(
+    (layers): ModuleList(
+      (0-2): 3 x TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+        )
+        (linear1): Linear(in_features=128, out_features=2048, bias=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+        (linear2): Linear(in_features=2048, out_features=128, bias=True)
+        (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (dropout1): Dropout(p=0.1, inplace=False)
+        (dropout2): Dropout(p=0.1, inplace=False)
+      )
+    )
+  )
+  (mlp): Sequential(
+    (0): Linear(in_features=24064, out_features=512, bias=True)
+    (1): ReLU()
+    (2): Dropout(p=0.5, inplace=False)
+    (3): Linear(in_features=512, out_features=128, bias=True)
+    (4): ReLU()
+    (5): Dropout(p=0.5, inplace=False)
+    (6): Linear(in_features=128, out_features=6, bias=True)
+  )
+)
+Output shape: torch.Size([32, 6])
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.01349267523492808
+train score: 0.9628623188405797
+val loss: 0.0018518995514254918
+val score: 0.9993345164152617
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 39m 59s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.9993
+
+Running evaluator3cnn-trans-mlp
+
+Running model: 6SleepStagerChambon2018
+Running model_runner.py with argument: ./modelpy/6SleepStagerChambon2018.py
+Running: python3 ./model_runner.py ./modelpy/6SleepStagerChambon2018.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+EEGClassifier(
+  (base): BaseEEGClassifier(
+    (sleep_stager): SleepStagerChambon2018(
+      (spatial_conv): Conv2d(1, 2, kernel_size=(2, 1), stride=(1, 1))
+      (feature_extractor): Sequential(
+        (0): Conv2d(1, 8, kernel_size=(1, 50), stride=(1, 1), padding=(0, 25))
+        (1): Identity()
+        (2): ReLU()
+        (3): MaxPool2d(kernel_size=(1, 13), stride=(1, 13), padding=0, dilation=1, ceil_mode=False)
+        (4): Conv2d(8, 8, kernel_size=(1, 50), stride=(1, 1), padding=(0, 25))
+        (5): Identity()
+        (6): ReLU()
+        (7): MaxPool2d(kernel_size=(1, 13), stride=(1, 13), padding=0, dilation=1, ceil_mode=False)
+      )
+      (final_layer): Sequential(
+        (0): Dropout(p=0.25, inplace=False)
+        (1): Linear(in_features=272, out_features=5, bias=True)
+      )
+    )
+  )
+  (fc): Linear(in_features=5, out_features=6, bias=True)
+)
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.041376247307898836
+train score: 0.8094202898550724
+val loss: 0.03549361668642512
+val score: 0.8319284235433304
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 06m 13s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.8319
+
+Running evaluator6SleepStagerChambon2018
+
+Running model: 2residual
+Running model_runner.py with argument: ./modelpy/2residual.py
+Running: python3 ./model_runner.py ./modelpy/2residual.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+EEGClassifier(
+  (conv1): Conv1d(2, 64, kernel_size=(7,), stride=(2,), padding=(3,), bias=False)
+  (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (maxpool): MaxPool1d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (layer1): Sequential(
+    (0): ResidualBlock(
+      (conv1): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=4, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential()
+    )
+    (1): ResidualBlock(
+      (conv1): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=4, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential()
+    )
+  )
+  (layer2): Sequential(
+    (0): ResidualBlock(
+      (conv1): Conv1d(64, 128, kernel_size=(3,), stride=(2,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=8, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential(
+        (0): Conv1d(64, 128, kernel_size=(1,), stride=(2,), bias=False)
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): ResidualBlock(
+      (conv1): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=8, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential()
+    )
+  )
+  (layer3): Sequential(
+    (0): ResidualBlock(
+      (conv1): Conv1d(128, 256, kernel_size=(3,), stride=(2,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(256, 256, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=16, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=16, out_features=256, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential(
+        (0): Conv1d(128, 256, kernel_size=(1,), stride=(2,), bias=False)
+        (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): ResidualBlock(
+      (conv1): Conv1d(256, 256, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(256, 256, kernel_size=(3,), stride=(1,), padding=(1,), bias=False)
+      (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (se): SEBlock(
+        (avg_pool): AdaptiveAvgPool1d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=16, bias=False)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=16, out_features=256, bias=False)
+          (3): Sigmoid()
+        )
+      )
+      (shortcut): Sequential()
+    )
+  )
+  (gru): GRU(256, 128, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+  )
+  (fc): Sequential(
+    (0): Linear(in_features=256, out_features=128, bias=True)
+    (1): ReLU(inplace=True)
+    (2): Dropout(p=0.5, inplace=False)
+    (3): Linear(in_features=128, out_features=6, bias=True)
+  )
+)
+Output shape: torch.Size([32, 6])
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.021347326648809156
+train score: 0.9124223602484473
+val loss: 0.008681599235170381
+val score: 0.9736764270925762
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 36m 07s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.9737
+
+Running evaluator2residual
+
+Running model: 4winner
+Running model_runner.py with argument: ./modelpy/4winner.py
+Running: python3 ./model_runner.py ./modelpy/4winner.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.027319982451218996
+train score: 0.873628364389234
+val loss: 0.01888622780973339
+val score: 0.9169624371487726
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 07m 09s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.9170
+
+Running evaluator4winner
+
+Running model: 5SleepStagerBlanco2020
+Running model_runner.py with argument: ./modelpy/5SleepStagerBlanco2020.py
+Running: python3 ./model_runner.py ./modelpy/5SleepStagerBlanco2020.py
+{0: 32.23158828748891, 1: 10.499852114758946, 2: 38.01390121265898, 3: 1.722863058266785, 4: 0.22922212363206151, 5: 17.30257320319432}
+0 (4359, 2, 3000)
+1 (1420, 2, 3000)
+2 (5141, 2, 3000)
+3 (233, 2, 3000)
+4 (31, 2, 3000)
+5 (2340, 2, 3000)
+Train data shape: (63928, 2, 3000)
+Train labels shape: (63928,)
+Validate data shape: (13524, 2, 3000)
+Validate labels shape: (13524,)
+Test data shape: (13093, 2, 3000)
+Test labels shape: (13093,)
+Total data size (number of samples): 90545
+EEGClassifier(
+  (base): BaseEEGClassifier(
+    (sleep_stager): SleepStagerBlanco2020(
+      (feature_extractor): Sequential(
+        (0): Conv2d(2, 20, kernel_size=(1, 7), stride=(1, 1), groups=2)
+        (1): Identity()
+        (2): ReLU()
+        (3): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (4): Conv2d(20, 20, kernel_size=(1, 7), stride=(1, 1), groups=20)
+        (5): Identity()
+        (6): ReLU()
+        (7): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (8): Conv2d(20, 20, kernel_size=(1, 5), stride=(1, 1), groups=20)
+        (9): Identity()
+        (10): ReLU()
+        (11): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (12): Conv2d(20, 20, kernel_size=(1, 5), stride=(1, 1), groups=20)
+        (13): Identity()
+        (14): ReLU()
+        (15): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (16): Conv2d(20, 20, kernel_size=(1, 5), stride=(1, 1), groups=20)
+        (17): Identity()
+        (18): ReLU()
+        (19): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (20): Conv2d(20, 20, kernel_size=(1, 3), stride=(1, 1), groups=20)
+        (21): Identity()
+        (22): ReLU()
+        (23): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+        (24): Conv2d(20, 20, kernel_size=(1, 3), stride=(1, 1), groups=20)
+        (25): Identity()
+        (26): ReLU()
+        (27): MaxPool2d(kernel_size=(1, 2), stride=(1, 2), padding=0, dilation=1, ceil_mode=False)
+      )
+      (final_layer): Sequential(
+        (0): Dropout(p=0.5, inplace=False)
+        (1): Linear(in_features=400, out_features=5, bias=True)
+        (2): LogSoftmax(dim=1)
+      )
+    )
+  )
+  (fc): Linear(in_features=5, out_features=6, bias=True)
+)
+{
+    "alpha": 0.01,
+    "batch_size": 120,
+    "device": "cuda",
+    "epochs": 5,
+    "lr": 0.001,
+    "model_name": "eeg-classifier_seed-42",
+    "num_workers": 2,
+    "phase": "base",
+    "seed": 42
+}
+
+###### PHASE 1 FINISHED ##########
+Figure(640x480)
+
+###### PHASE 2 FINISHED ########OUTPUT_FOLDER##
+Figure(640x480)
+train loss: 0.07423065163148856
+train score: 0.6075310559006211
+val loss: 0.06300397452988983
+val score: 0.6719165927240461
+
+###### PHASE 3 FINISHED ##########
+Figure(640x480)
+Training completed in: 00h 05m 05s
+Figure(2200x600)
+Figure(640x480)
+Validation Accuracy: 0.6719
+
+Running evaluator5SleepStagerBlanco2020
+
+Pipeline completed at 2024-10-02 02:09:18.233776
+========================================
+
+
+========================================
+Starting pipeline at 2024-10-03 01:19:35.492196
+========================================
+
+
+Running model: htnet
+Running model_runner.py with argument: ./modelpy/htnet.py
+Running: python3 ./model_runner.py ./modelpy/htnet.py
+Error running ./model_runner.py:
+
+  0%|          | 0/532 [00:00<?, ?it/s]
+  0%|          | 0/532 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 727, in <module>
+    run_and_save_model(args, model_file, source_data, source_labels, target_data, target_labels, test_data,test_labels, mixup_data=None, supervised_mixup_data=supervised_mixup_data)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 552, in run_and_save_model
+    supervised_run(args, model, source_data, source_labels, target_data, target_labels, test_data, mixup_data=mixup_data, supervised_mixup_data=supervised_mixup_data, filename =  meta_file_path)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 449, in supervised_run
+    train_model(args, model,
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 345, in train_model
+    _, _, train_score, train_loss = train_epoch(args, model, train_loader, criterion, optimizer, scheduler, epoch)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 215, in train_epoch
+    lds = vat_loss(model, eeg)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 174, in forward
+    pred = F.softmax(model(x), dim=1)
+                     ^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/modelpy/htnet.py", line 78, in forward
+    x = self.features(x)
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/modelpy/htnet.py", line 74, in features
+    x = self.base(x)
+        ^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/modelpy/htnet.py", line 47, in forward
+    x = torch.relu(self.conv1(x))
+                   ^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 458, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 454, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [64, 2, 2, 4], expected input[1, 120, 2, 3000] to have 2 channels, but got 120 channels instead
+
+Running evaluatorhtnet
+
+========================================
+Starting pipeline at 2024-10-03 01:21:23.945368
+========================================
+
+
+Running model: htnet
+Running model_runner.py with argument: ./modelpy/htnet.py
+Running: python3 ./model_runner.py ./modelpy/htnet.py
+Error running ./model_runner.py:
+
+  0%|          | 0/532 [00:00<?, ?it/s]
+  0%|          | 0/532 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 727, in <module>
+    run_and_save_model(args, model_file, source_data, source_labels, target_data, target_labels, test_data,test_labels, mixup_data=None, supervised_mixup_data=supervised_mixup_data)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 552, in run_and_save_model
+    supervised_run(args, model, source_data, source_labels, target_data, target_labels, test_data, mixup_data=mixup_data, supervised_mixup_data=supervised_mixup_data, filename =  meta_file_path)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 449, in supervised_run
+    train_model(args, model,
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 345, in train_model
+    _, _, train_score, train_loss = train_epoch(args, model, train_loader, criterion, optimizer, scheduler, epoch)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 215, in train_epoch
+    lds = vat_loss(model, eeg)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 174, in forward
+    pred = F.softmax(model(x), dim=1)
+                     ^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/modelpy/htnet.py", line 79, in forward
+    x = torch.relu(self.fc1(x))
+                   ^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 117, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (256x1 and 256x256)
+
+Running evaluatorhtnet
+
+========================================
+Starting pipeline at 2024-10-03 01:22:53.697144
+========================================
+
+
+Running model: htnet
+Running model_runner.py with argument: ./modelpy/htnet.py
+Running: python3 ./model_runner.py ./modelpy/htnet.py
+Error running ./model_runner.py:
+
+  0%|          | 0/532 [00:00<?, ?it/s]
+  0%|          | 0/532 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 727, in <module>
+    run_and_save_model(args, model_file, source_data, source_labels, target_data, target_labels, test_data,test_labels, mixup_data=None, supervised_mixup_data=supervised_mixup_data)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 552, in run_and_save_model
+    supervised_run(args, model, source_data, source_labels, target_data, target_labels, test_data, mixup_data=mixup_data, supervised_mixup_data=supervised_mixup_data, filename =  meta_file_path)
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 449, in supervised_run
+    train_model(args, model,
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 345, in train_model
+    _, _, train_score, train_loss = train_epoch(args, model, train_loader, criterion, optimizer, scheduler, epoch)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 215, in train_epoch
+    lds = vat_loss(model, eeg)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/./model_runner.py", line 174, in forward
+    pred = F.softmax(model(x), dim=1)
+                     ^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/5cd1329d-6ad0-4c91-904e-ba21c872357b/Deepak/Students/Susmit_23CS60R75/model_final/with_sub/ipynbRun/modelpy/htnet.py", line 79, in forward
+    x = torch.relu(self.fc1(x))
+                   ^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/deepak/miniconda3/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 117, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (256x1 and 256x256)
+
+Running evaluatorhtnet

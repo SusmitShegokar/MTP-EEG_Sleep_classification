@@ -1,0 +1,5 @@
+Training time: 00h 16m 52s
+Validation Accuracy: 0.8560
+Testing time: 00h 00m 00s
+Test Accuracy: 0.8298
+Test Loss: 0.0360
